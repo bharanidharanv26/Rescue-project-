@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, AudioLines, CircleAlert, LoaderCircle, Mic, Phone, Square } from 'lucide-react'
+import { ArrowRight, AudioLines, CircleAlert, FileText, LoaderCircle, Mic, Phone, Square } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { EmergencySummary } from '../components/EmergencySummary'
 import { useEmergencyCall } from '../hooks/useEmergencyCall'
 import { extractEmergency } from '../lib/extraction'
 import type { EmergencyDetails } from '../lib/types'
+
+const DEMO_SCRIPT = {
+  en: 'There has been a road accident near T. Nagar bus stand in Chennai. Three people are injured. One person is unconscious but breathing. Another person has heavy bleeding from their leg. The third person has a broken arm and is conscious. Please send ambulances and a rescue team. We are waiting beside the bus stand entrance.',
+  ta: 'சென்னையில் தியாகராய நகர் பேருந்து நிலையம் அருகே சாலை விபத்து நடந்துள்ளது. மூன்று பேர் காயமடைந்துள்ளனர். ஒருவர் மயக்கத்தில் இருக்கிறார், ஆனால் மூச்சு விடுகிறார். இன்னொருவரின் காலில் அதிகமாக ரத்தம் வருகிறது. மூன்றாவது நபருக்குக் கை முறிந்துள்ளது, அவர் சுயநினைவுடன் இருக்கிறார். தயவுசெய்து ஆம்புலன்ஸ்களையும் மீட்புக் குழுவையும் அனுப்புங்கள். நாங்கள் பேருந்து நிலைய நுழைவாயில் அருகே காத்திருக்கிறோம்.',
+}
 
 export function CallPage({ onSubmit }: { onSubmit: (transcript: string, requestId: string) => Promise<EmergencyDetails> }) {
   const [language, setLanguage] = useState<'en' | 'ta'>('en')
@@ -61,6 +66,13 @@ export function CallPage({ onSubmit }: { onSubmit: (transcript: string, requestI
       }}>{processing ? <LoaderCircle size={19} className="spin" /> : call.active || call.connecting ? <Square size={17} fill="currentColor" /> : <Phone size={19} />}{processing ? 'PROCESSING CALL' : call.active || call.connecting ? 'STOP CALL' : retry ? 'RETRY RESPONSE' : clarifyingLocation ? 'CLARIFY LOCATION' : 'CALL EMERGENCY'}</button>
       <p className="voice-help">{clarifyingLocation ? 'Your emergency report is saved. Say only the correct location, city and landmark, then stop.' : call.active ? 'Speech is transcribed live by Mistral. Stop when you have finished.' : 'Microphone audio is sent to Mistral for transcription. Simulation only.'}</p>
       <div className="language-picker"><span className="small-label">Language</span><button type="button" aria-pressed={language === 'en'} className={language === 'en' ? 'selected' : ''} onClick={() => setLanguage('en')}>English</button><button type="button" aria-pressed={language === 'ta'} className={language === 'ta' ? 'selected' : ''} onClick={() => setLanguage('ta')}>தமிழ்</button></div>
+    </section>
+
+    <section className="demo-script" aria-labelledby="demo-script-heading">
+      <div className="voice-section-heading"><h2 id="demo-script-heading"><FileText size={18} /> Presentation demo script</h2><span className="small-label">SAMPLE SCENARIO</span></div>
+      <p className="demo-script-help">Select your language above, click <strong>CALL EMERGENCY</strong>, and read this aloud. Click <strong>STOP CALL</strong> when finished.</p>
+      <blockquote lang={language}>{DEMO_SCRIPT[language]}</blockquote>
+      <p className="demo-script-next">Then review the extracted details and select <strong>Follow emergency response</strong> to present the dispatch and rescue simulation.</p>
     </section>
 
     <section className="voice-transcript" aria-labelledby="transcript-heading"><div className="voice-section-heading"><h2 id="transcript-heading"><AudioLines size={18} /> Live transcript</h2><span className={`capture-badge ${call.active ? 'capturing' : ''}`}><span />{call.active ? 'Live · Mistral' : details ? 'Call complete' : 'Waiting for speech'}</span></div>

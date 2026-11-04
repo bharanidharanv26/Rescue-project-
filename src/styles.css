@@ -20,6 +20,11 @@
   .is-recording .microphone-orb { background: #edf9f2; color: #14845d; }
   .voice-page .call-action { margin-top: 16px; height: 56px; font-size: 12px; border-radius: 10px; }
   .voice-help { text-align: center; font-size: 11px; color: #687a92; margin-top: 12px; line-height: 1.7; }
+  .demo-script { margin-top: 28px; padding: 22px 24px; background: #f0f5fd; border: 1px solid #d6e3f4; border-radius: 12px; }
+  .demo-script .voice-section-heading { flex-wrap: wrap; }
+  .demo-script .small-label { color: #4573b2; font-size: 9px; }
+  .demo-script-help, .demo-script-next { color: #62738b; font-size: 12px; line-height: 1.8; margin-top: 12px; }
+  .demo-script blockquote { margin: 18px 0 0; padding-left: 16px; border-left: 3px solid #80a7df; color: #273e5b; font-size: 16px; line-height: 1.9; overflow-wrap: anywhere; }
   .voice-transcript { margin-top: 34px; }
   .voice-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
   .voice-section-heading h2 { display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 650; letter-spacing: -.2px; }
@@ -78,6 +83,7 @@
   @media (max-width: 650px) {
     .header-inner { gap: 12px; }.aegis-wordmark { font-size: 22px; }.aegis-wordmark > span { font-size: 13px; }
     .voice-page { width: calc(100% - 36px); padding: 30px 0 40px; }
+    .demo-script { padding: 18px; }
     .voice-title p { font-size: 13px; }.speech-input { gap: 12px; padding: 18px 14px; }.microphone-orb { width: 47px; height: 53px; border-radius: 13px; }.speech-input strong { font-size: 13px; }.speech-input p { font-size: 11px; }.speech-input p span { display: none; }.recording-time { font-size: 12px; }.recording-time > svg { width: 20px; }
     .voice-section-heading { gap: 8px; }.voice-section-heading h2 { font-size: 14px; }.voice-section-heading .small-label { font-size: 8px; letter-spacing: .5px; }.voice-section-heading .capture-badge { font-size: 9px; }
     .voice-details .extracted-grid { gap: 21px 14px; }.voice-details .field-value { font-size: 12px; }.voice-details .field-label { font-size: 11px; }.transcript-output { padding: 18px; font-size: 16px; }
